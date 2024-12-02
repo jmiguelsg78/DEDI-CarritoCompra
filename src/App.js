@@ -1,25 +1,26 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import Catalogo from './components/Catalogo';
+import Carrito from './components/Carrito';
 import './App.css';
 
-function App() {
+const App = () => {
+  const [carrito, setCarrito] = useState([]);
+
+  const agregarAlCarrito = (articulo) => {
+    setCarrito([...carrito, articulo]);
+  };
+
+  const eliminarDelCarrito = (id) => {
+    setCarrito(carrito.filter((item) => item.id !== id));
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Catálogo Navideño</h1>
+      <Catalogo agregarAlCarrito={agregarAlCarrito} />
+      <Carrito carrito={carrito} eliminarDelCarrito={eliminarDelCarrito} />
     </div>
   );
-}
+};
 
 export default App;
