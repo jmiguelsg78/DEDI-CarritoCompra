@@ -1,23 +1,46 @@
 import React from 'react';
 
-const Carrito = ({ carrito, eliminarDelCarrito }) => {
+function Carrito({ carrito, eliminarDelCarrito }) {
   return (
-    <div className="carrito">
-      <h2>Carrito</h2>
+    <aside style={styles.carrito}>
+      <h2>🛒 Tu Carrito</h2>
       {carrito.length === 0 ? (
-        <p>El carrito está vacío.</p>
+        <p>No hay productos en el carrito.</p>
       ) : (
         <ul>
-          {carrito.map((item) => (
-            <li key={item.id}>
-              {item.nombre} - ${item.precio.toFixed(2)}
-              <button onClick={() => eliminarDelCarrito(item.id)}>Eliminar</button>
+          {carrito.map((item, index) => (
+            <li key={index} style={styles.item}>
+              <span>{item.nombre} - ${item.precio}</span>
+              <button onClick={() => eliminarDelCarrito(index)} style={styles.botonEliminar}>
+                Eliminar
+              </button>
             </li>
           ))}
         </ul>
       )}
-    </div>
+    </aside>
   );
+}
+
+const styles = {
+  carrito: {
+    flex: 1,
+    padding: '10px',
+    backgroundColor: '#F5F5F5',
+    borderRadius: '5px',
+  },
+  item: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    marginBottom: '10px',
+  },
+  botonEliminar: {
+    backgroundColor: '#E63946',
+    color: 'white',
+    border: 'none',
+    padding: '5px 10px',
+    cursor: 'pointer',
+  },
 };
 
 export default Carrito;

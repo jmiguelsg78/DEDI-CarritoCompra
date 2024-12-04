@@ -1,26 +1,45 @@
 import React, { useState } from 'react';
 import Catalogo from './components/Catalogo';
 import Carrito from './components/Carrito';
-import './App.css';
 
-const App = () => {
+function App() {
   const [carrito, setCarrito] = useState([]);
 
-  const agregarAlCarrito = (articulo) => {
-    setCarrito([...carrito, articulo]);
+  // Agregar producto al carrito
+  const agregarAlCarrito = (item) => {
+    setCarrito([...carrito, item]);
   };
 
+  // Eliminar producto del carrito
   const eliminarDelCarrito = (id) => {
-    setCarrito(carrito.filter((item) => item.id !== id));
+    setCarrito(carrito.filter((item, index) => index !== id));
   };
 
   return (
-    <div className="App">
-      <h1>Catálogo Navideño</h1>
-      <Catalogo agregarAlCarrito={agregarAlCarrito} />
-      <Carrito carrito={carrito} eliminarDelCarrito={eliminarDelCarrito} />
+    <div>
+      <header style={styles.header}>
+        <h1>🎄 Catálogo Navideño 🎅</h1>
+      </header>
+      <main style={styles.container}>
+        <Catalogo agregarAlCarrito={agregarAlCarrito} />
+        <Carrito carrito={carrito} eliminarDelCarrito={eliminarDelCarrito} />
+      </main>
     </div>
   );
+}
+
+const styles = {
+  header: {
+    textAlign: 'center',
+    padding: '20px',
+    backgroundColor: '#3E8E7E',
+    color: 'white',
+  },
+  container: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    padding: '20px',
+  },
 };
 
 export default App;
